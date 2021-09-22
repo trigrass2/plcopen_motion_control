@@ -25,6 +25,23 @@ target_link_libraries(single_axis_move_relative ${PROJECT_NAME} ruckig::ruckig -
 add_executable(axis_move_cyclic demo/single_axis_move_relative.cpp)
 target_link_libraries(axis_move_cyclic ${PROJECT_NAME} ruckig::ruckig -lpthread)
 
+find_library(
+    tcc_collector
+    NAMES tcc_collector
+    HINTS /usr/lib64/)
+find_library(
+    TCC_rtcdatamgr
+    NAMES tcc_rtcdatamgr
+    HINTS /usr/lib64/)
+
+find_library(
+    TCC_tcc
+    NAMES tcc
+    HINTS /usr/lib64/)
+
+add_executable(tcc_measure demo/tcc_measure.cpp)
+target_link_libraries(tcc_measure ${PROJECT_NAME} ${tcc_collector}  ${TCC_rtcdatamgr} ${TCC_tcc} ruckig::ruckig -lpthread)
+
 add_executable(multi-axis demo/multi-axis.cpp)
 target_link_libraries(multi-axis ${PROJECT_NAME} ruckig::ruckig -lpthread)
 
